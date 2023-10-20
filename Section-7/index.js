@@ -2,12 +2,41 @@ const http = require("http");
 const port = 3000;
 
 const server = http.createServer();
+const friends = [
+  { id: 1, name: "Friend1" },
+  { id: 2, name: "Friend2" },
+  { id: 3, name: "Friend3" },
+];
 
 server.on("request", (req, res) => {
-  if (req.url === "/freinds") {
-    res.writeHead(200, { "Content-Type": "application/json" });
-    res.end(JSON.stringify({ freinds: ["Mango", "Poly", "Ajax"] }));
-  } else if (req.url === "/message") {
+  const reqItemes = req.url.split("/");
+  console.log(reqItemes);
+
+  if (reqItemes[1] === "freinds") {
+    if (req.method === "GET") {
+      if (reqItemes.length === 2) {
+        res.writeHead(200, { "Content-Type": "application/json" });
+        res.end(JSON.stringify(friends));
+      } else if (reqItemes.length === 3) {
+        const id = reqItemes[2] * 1;
+        console.log(id);
+        res.writeHead(200, { "Content-Type": "application/json" });
+        res.end(
+          JSON.stringify({
+            freinds: friends.filter((friend) => friend.id === id),
+          })
+        );
+      }
+    } else if (req.method === "POST") {
+      req.on(
+        "data",
+        (data) => {
+          friends.push(JSON.parse(data));
+        },
+        req.pipe(res)
+      );
+    }
+  } else if (req.url === "message") {
     req.statusCode = 200;
     res.setHeader("Content-type", "text/html");
     res.write("<html>");

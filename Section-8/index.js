@@ -14,8 +14,22 @@ app.use((req, res, next) => {
   console.log(req.method, req.url, `Time:${Date.now() - start}`);
 });
 
+app.use(express.json());
+
 app.get("/friends", (req, res, next) => {
   res.status(200).json(friends);
+});
+
+app.post("/friends", (req, res, next) => {
+  if (!req.body.name) {
+    return res.status(400).json({ error: "Invalid" });
+  }
+  const friend = {
+    name: req.body.name,
+    id: friends.length,
+  };
+  res.status(201).json(friend);
+  friends.push(friend);
 });
 
 app.get("/friends/:id", (req, res, next) => {

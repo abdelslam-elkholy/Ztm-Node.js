@@ -3,6 +3,7 @@ const app = express();
 const PORT = 3000;
 
 const friends = [
+  { id: 0, name: "Friend0" },
   { id: 1, name: "Friend1" },
   { id: 2, name: "Friend2" },
   { id: 3, name: "Friend3" },
@@ -15,22 +16,6 @@ app.use((req, res, next) => {
 });
 
 app.use(express.json());
-
-app.get("/friends", (req, res, next) => {
-  res.status(200).json(friends);
-});
-
-app.post("/friends", (req, res, next) => {
-  if (!req.body.name) {
-    return res.status(400).json({ error: "Invalid" });
-  }
-  const friend = {
-    name: req.body.name,
-    id: friends.length,
-  };
-  res.status(201).json(friend);
-  friends.push(friend);
-});
 
 app.get("/friends/:id", (req, res, next) => {
   const id = req.params.id * 1;

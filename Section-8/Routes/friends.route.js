@@ -1,10 +1,10 @@
 const express = require("express");
 
 const friendsController = require("../Controllers/friends.controller");
-const friendsrouter = express.Router();
+const friendsRouter = express.Router();
 
-app.get("/", friendsController.getFriends);
-app.get("/:id", friendsController.getOneFriend);
-app.post("/", friendsController.createFriend);
+friendsRouter.get("/", friendsController.getFriends);
+friendsRouter.get("/:id", friendsController.getOneFriend);
+friendsRouter.post("/", friendsController.createFriend);
 
-module.exports = friendsrouter;
+module.exports = friendsRouter;

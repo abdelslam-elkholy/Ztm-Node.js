@@ -6,6 +6,8 @@ const PORT = 3000;
 
 const friendsRoute = require("./Routes/friends.route");
 
+app.use(express.static(path.join(__dirname, "public")));
+
 app.set("view engine", "hbs");
 app.set("views", path.join(__dirname, "Views"));
 
@@ -20,7 +22,7 @@ app.use(express.json());
 app.get("/", (req, res, next) => {
   res.render("index", {
     title: "Home Page",
-    item: "heyyou",
+    item: "hey you",
   });
 });
 

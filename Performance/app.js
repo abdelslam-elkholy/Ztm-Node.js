@@ -8,11 +8,11 @@ const delay = (timer) => {
     // delay
   }
 };
-app.get("/api/", (req, res) => {
+app.get("/", (req, res) => {
   res.send("HEY");
 });
 
-app.get("delay", (req, res) => {
+app.get("/delay", (req, res) => {
   delay(10000);
   res.send("HEY DElllllllllaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaay");
 });
